@@ -1,0 +1,32 @@
+#######################################
+# Syntax  Map For DS1302
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+DS1302  KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+readSecond			KEYWORD2
+readMinutes			KEYWORD2
+readHours			KEYWORD2
+readDay				KEYWORD2
+readDate			KEYWORD2
+readMonth			KEYWORD2
+readYear			KEYWORD2
+writeSecond			KEYWORD2
+writeMinutes			KEYWORD2
+writeHours			KEYWORD2
+writeDay			KEYWORD2
+writeDate			KEYWORD2
+writeMonth			KEYWORD2
+writeYear			KEYWORD2
+setWriteProtection		KEYWORD2
+removeWriteProtection		KEYWORD2
+writeToRam			KEYWORD2
+readFromRam			KEYWORD2
