@@ -1,75 +1,56 @@
 #include "DS1302.h"
 
-
-  DS1302::DS1302 (int CLK, int IO, int CE) {
-    DS1302_CLK_PIN = CLK;
-    DS1302_IO_PIN = IO;
-    DS1302_CE_PIN = CE;
-    
+DS1302::DS1302 (int CLK, int IO, int CE): 
+    DS1302_CLK_PIN(CLK), DS1302_IO_PIN(IO), DS1302_CE_PIN(CE) 
+{
     pinMode(DS1302_IO_PIN, OUTPUT);
     pinMode(DS1302_CLK_PIN, OUTPUT);
     pinMode(DS1302_CE_PIN, OUTPUT);
     digitalWrite(DS1302_IO_PIN, LOW);
     digitalWrite(DS1302_CLK_PIN, LOW);
     digitalWrite(DS1302_CE_PIN, LOW);
-    }
+}
 
-  void DS1302::readData (byte ADDRESS, byte &data){
+void DS1302::readData (byte ADDRESS, byte &data){
     pinMode( DS1302_IO_PIN, OUTPUT);
     bitWrite( ADDRESS, 0, 1);             // address change to READ
     digitalWrite(DS1302_CE_PIN, HIGH);
-    delayMicroseconds(4);                 // Tcc = 4us
 
     for(int i = 0; i<=7; ++i){  
      digitalWrite(DS1302_IO_PIN, bitRead(ADDRESS, i)); 
-     delayMicroseconds(1); 
      digitalWrite(DS1302_CLK_PIN, HIGH);
-     delayMicroseconds(1);
      if (i == 7){
       pinMode( DS1302_IO_PIN, INPUT);
-      }   
-      else {
-        digitalWrite(DS1302_CLK_PIN, LOW);
-        delayMicroseconds(1);
-        }   
+     }   
+     else {
+      digitalWrite(DS1302_CLK_PIN, LOW);
+     }   
     }
-   
-      for(int i=0; i<=7; ++i){
+    for(int i=0; i<=7; ++i){
      digitalWrite(DS1302_CLK_PIN, HIGH);
-     delayMicroseconds(1);
      digitalWrite(DS1302_CLK_PIN, LOW);
-     delayMicroseconds(1);
-      bitWrite( data, i, digitalRead( DS1302_IO_PIN));
-   
+     bitWrite( data, i, digitalRead( DS1302_IO_PIN));
     }
-   delayMicroseconds(1);
    digitalWrite(DS1302_CE_PIN, LOW);
 }
 
   void DS1302::writeData(byte ADDRESS, byte &data){
     pinMode( DS1302_IO_PIN, OUTPUT);
     digitalWrite(DS1302_CE_PIN, HIGH);
-    delayMicroseconds(4);                 // Tcc = 4us
 
     for(int i = 0; i<=7; ++i){  
      digitalWrite(DS1302_IO_PIN, bitRead(ADDRESS, i)); 
-     delayMicroseconds(1); 
      digitalWrite(DS1302_CLK_PIN, HIGH);
-     delayMicroseconds(1);
-     digitalWrite(DS1302_CLK_PIN, LOW);
-     delayMicroseconds(1);        
+     digitalWrite(DS1302_CLK_PIN, LOW);      
      }
    
     for(int i=0; i<=7; ++i){
      digitalWrite(DS1302_IO_PIN, bitRead(data, i));
-     delayMicroseconds(1); 
      digitalWrite(DS1302_CLK_PIN, HIGH);
-     delayMicroseconds(1);
-     digitalWrite(DS1302_CLK_PIN, LOW);
-     delayMicroseconds(1);        
+     digitalWrite(DS1302_CLK_PIN, LOW);     
     }
    digitalWrite(DS1302_CE_PIN, LOW);
-    }
+}
     
   byte DS1302::readSecond(){
     readData (DS1302_ADDRESS_SECONDS, secondsData);

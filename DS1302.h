@@ -9,8 +9,6 @@
 #define DS1302_ADDRESS_YEAR     0x8C    // Address for write, for read add 1
 #define DS1302_ADDRESS_WP       0x8E    // Address for write protection
 
-#define uint8_t byte
-
 class DS1302 {
   private:
     byte secondsData, minutesData, hoursData, dateData, dayData, monthData, yearData;
@@ -33,16 +31,16 @@ class DS1302 {
     byte readMonth();
     byte readYear();
   
-    void writeSecond(byte second);				// Values 0-59
-    void writeMinutes(byte minutes);			// Values 0-59
-    void writeHours(byte hours);				// Values 0-23
-    void writeDay(byte day);					// Values 0-7
-    void writeDate(byte date);					// Values 1-31
-    void writeMonth(byte month);				// Values 1-12
-    void writeYear(byte year);					// Values 0-99
+    void writeSecond(byte second);        // Values 0-59
+    void writeMinutes(byte minutes);      // Values 0-59
+    void writeHours(byte hours);          // Values 0-23
+    void writeDay(byte day);              // Values 0-7
+    void writeDate(byte date);            // Values 1-31
+    void writeMonth(byte month);          // Values 1-12
+    void writeYear(byte year);            // Values 0-99
     void setWriteProtection();
     void removeWriteProtection();
-    void writeToRam(byte ADDRESS, byte data);	// Address  C0h - FCh
-    byte readFromRam(byte ADDRESS);				// Address  C0h - FCh
+    void writeToRam(byte ADDRESS, byte data); // Address  C0h - FCh
+    byte readFromRam(byte ADDRESS);           // Address  C0h - FCh
   
   };
